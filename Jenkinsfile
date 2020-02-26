@@ -17,7 +17,7 @@ spec:
   serviceAccountName: cd-jenkins
   containers:
   - name: ci
-    image 'gradle:jdk11'
+    image: 'gradle:jdk11'
     command:
     - cat
     tty: true
