@@ -59,8 +59,8 @@ jib {
             tags = [version.toString(), 'latest']
         }
         auth {
-            username = "${DOCKER_REGISTRY_USERNAME}"
-            password = "${DOCKER_REGISTRY_TOKEN}"
+            username = "${docker_registry_username}"
+            password = "${docker_registry_token}"
         }
     }
 
