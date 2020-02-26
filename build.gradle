@@ -59,8 +59,8 @@ jib {
             tags = [version.toString(), 'latest']
         }
         auth {
-            username = project.property('docker_registry_username')
-            password = project.property('docker_registry_token')
+            username = project.properties['docker_registry_username'] ?: 'no-name'
+            password = project.properties['docker_registry_token'] ?: 'no-token'
         }
     }
 
