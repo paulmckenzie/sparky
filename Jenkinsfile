@@ -28,24 +28,24 @@ spec:
     stages {
 
         stage('Source') {
-            container('ci') {
-                steps {
+            steps {
+                container('ci') {
                     git credentialsId: 'GitHub', url: 'https://github.com/paulmckenzie/sparky'
                 }
             }
         }
 
         stage('Test') {
-            container('ci') {
-                steps {
+            steps {
+                container('ci') {
                     sh './gradlew clean test'
                 }
             }
         }
 
         stage('Publish') {
-            container('ci') {
-                steps{
+            steps{
+                container('ci') {
                     sh './gradlew -Preckon.stage=final jib'
                 }
             }
