@@ -47,12 +47,14 @@ spec:
             steps{
                 container('ci') {
                     withCredentials([string(credentialsId: 'DockerHubToken', variable: 'DOCKER_REGISTRY_TOKEN'),
-                                     string(credentialsId: 'DockerHubAccount', variable: 'DOCKER_REGISTRY_USERNAME')])
-                    sh "./gradlew \
+                                     string(credentialsId: 'DockerHubAccount', variable: 'DOCKER_REGISTRY_USERNAME')]) {
+                        sh "./gradlew \
                         -Preckon.stage=final \
                         -Pdocker_registry_token=${DOCKER_REGISTRY_TOKEN} \
                         -Pdocker_registry_username=${DOCKER_REGISTRY_USERNAME} \
                         jib"
+
+                    }
                 }
             }
         }
