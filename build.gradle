@@ -48,11 +48,19 @@ test {
 }
 
 
-jib{
+jib {
+    from {
+        image = 'adoptopenjdk/openjdk11'
+    }
+
     to {
         image = 'paulcmckenzie/sparky'
-        project.afterEvaluate { // <-- so we evaluate version after it has been set
-            tags = [version.toString()]
+        project.afterEvaluate {
+            tags = [version.toString(), 'latest']
+        }
+        auth {
+            username = "${DOCKER_REGISTRY_USERNAME}"
+            password = "${DOCKER_REGISTRY_TOKEN}"
         }
     }
 

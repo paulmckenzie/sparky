@@ -46,6 +46,8 @@ spec:
         stage('Publish') {
             steps{
                 container('ci') {
+                    withCredentials([string(credentialsId: 'DockerHubToken', variable: 'DOCKER_REGISTRY_TOKEN'),
+                                     string(credentialsId: 'DockerHubAccount', variable: 'DOCKER_REGISTRY_USERNAME')])
                     sh './gradlew -Preckon.stage=final jib'
                 }
             }
