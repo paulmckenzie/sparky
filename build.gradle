@@ -45,8 +45,6 @@ dependencies {
     testImplementation 'org.mockito:mockito-inline:3.3.0'
     testImplementation 'org.mockito:mockito-junit-jupiter:3.3.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
-    testImplementation 'io.rest-assured:rest-assured:4.2.0'
-    testImplementation 'io.rest-assured:json-path:4.2.0'
 }
 
 application {
@@ -57,6 +55,48 @@ test {
     useJUnitPlatform()
 }
 
+sourceSets {
+    integrationTest {
+        compileClasspath += sourceSets.main.output
+        runtimeClasspath += sourceSets.main.output
+    }
+}
+
+configurations {
+    intTestImplementation.extendsFrom implementation
+    intTestRuntimeOnly.extendsFrom runtimeOnly
+}
+
+dependencies {
+    integrationTestImplementation 'org.slf4j:slf4j-simple:1.7.30'
+    integrationTestImplementation 'io.javalin:javalin:3.7.0'
+    integrationTestImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.2'
+    integrationTestImplementation 'org.mockito:mockito-core:3.3.0'
+    integrationTestImplementation 'org.mockito:mockito-inline:3.3.0'
+    integrationTestImplementation 'org.mockito:mockito-junit-jupiter:3.3.0'
+    integrationTestRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
+    integrationTestImplementation 'io.rest-assured:json-path:4.2.0'
+    integrationTestImplementation 'io.rest-assured:rest-assured:4.2.0'
+    integrationTestImplementation 'io.rest-assured:rest-assured:4.2.0'
+    integrationTestImplementation 'com.fasterxml.jackson.core:jackson-core:2.10.2'
+    integrationTestImplementation 'com.fasterxml.jackson.core:jackson-annotations:2.10.2'
+    integrationTestImplementation 'com.fasterxml.jackson.core:jackson-databind:2.10.2'
+    integrationTestImplementation 'com.fasterxml.jackson.module:jackson-module-parameter-names:2.10.2'
+    integrationTestImplementation 'com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.10.2'
+    integrationTestImplementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.10.2'
+}
+
+task integrationTest(type: Test) {
+    description = 'Runs integration tests.'
+    group = 'verification'
+
+    testClassesDirs = sourceSets.integrationTest.output.classesDirs
+    classpath = sourceSets.integrationTest.runtimeClasspath
+
+    useJUnitPlatform()
+
+    shouldRunAfter test
+}
 
 jib {
     from {

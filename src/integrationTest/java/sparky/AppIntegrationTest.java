@@ -1,6 +1,7 @@
 
 package sparky;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
@@ -8,6 +9,11 @@ import static org.hamcrest.Matchers.equalTo;
 
 class AppIntegrationTest {
     private final String name = "Derek";
+
+    @BeforeAll
+    static void beforeAll() {
+        App.main(new String[0]);
+    }
 
     @Test
     void appHasAGreeting() {
